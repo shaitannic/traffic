@@ -23,6 +23,11 @@ export class YandexService {
         })
     }
 
+    public save(object): void {
+        // todo save to file
+        // request to server
+    }
+
     private initMap(): void {
         this.map = new this.ymaps.Map("map", {
             center: [55.76, 37.64],

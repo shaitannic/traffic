@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { YandexService } from '../../yandex.service';
 import { Yandex } from '../../yandex.interface';
+import { Polyline } from '../../models/polyline';
 
 @Component({
     selector: 'add-polyline',
@@ -21,10 +22,7 @@ export class PolylineComponent implements OnInit {
             }
         })
 
-        this.yandexService.coordinateOfClick.subscribe(value => {
-            console.log(this.coords)
-            this.coords.push(value);
-        })
+        this.yandexService.coordinateOfClick.subscribe(value => this.coords.push(value))
     }
 
     private defineButton(): void {
@@ -37,35 +35,15 @@ export class PolylineComponent implements OnInit {
         this._isActive = !!this._isActive ? false : true;
 
         if (this._isActive) {
-            this.coords = [];
+            this.resetCoords();
         } else if (!!this.coords) {
-            this.createPolyline();
+            let polylyne = new Polyline(this.yandexService);
+            polylyne.create(this.coords);
+            polylyne.save();
         }
-
-        console.log('button is clicked');
     }
 
-    // Создаем ломаную с помощью вспомогательного класса Polyline.
-    private createPolyline(): void {
-        var myPolyline = new this.yandexService.ymaps.Polyline(this.coords, {
-            balloonContent: "Ломаная линия"
-        }, {
-            // Цвет линии.
-            strokeColor: "#000000",
-            // Ширина линии.
-            strokeWidth: 4,
-            // Коэффициент прозрачности.
-            strokeOpacity: 0.5
-        });
-
-        this.yandexService.map.geoObjects.add(myPolyline);
-    }
-
-    // Определяем координаты щелчка
-    private getCoordinateOfClick(): void {
-        this.yandexService.map.events.add('click', function (e) {
-            var coords = e.get('coordPosition');
-            console.log(coords);
-        });
+    private resetCoords(): void {
+        this.coords = [];
     }
 }
