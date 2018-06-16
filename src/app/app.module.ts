@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { YandexModule } from './yandex/yandex.module';
+import { YandexService } from './yandex.service';
 
 
 @NgModule({
@@ -10,10 +10,13 @@ import { YandexModule } from './yandex/yandex.module';
     AppComponent
   ],
   imports: [
-    BrowserModule,
-    YandexModule
+    BrowserModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    YandexService
+  ],
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule { }

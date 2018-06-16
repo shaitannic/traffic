@@ -1,8 +1,6 @@
-import { Injectable } from '@angular/core';
 import { YandexService } from '../yandex.service';
 
-// @Injectable()
-export class Polyline {
+export class Placemark {
     myPolyline: any;
 
     type: "Feature";

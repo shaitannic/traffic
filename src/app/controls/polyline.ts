@@ -1,21 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { YandexService } from '../../yandex.service';
-import { Yandex } from '../../yandex.interface';
-import { Polyline } from '../../models/polyline';
+import { YandexService } from '../yandex.service';
+import { Polyline } from '../models/polyline';
 
-@Component({
-    selector: 'add-polyline',
-    templateUrl: './polyline.component.html',
-    styleUrls: ['./polyline.component.less']
-})
-export class PolylineComponent implements OnInit {
+export class PolylineButton {
     private _isActive: boolean = false;
     private coords: Array<any> = [];
 
     constructor(private yandexService: YandexService) {
-    }
-
-    ngOnInit(): void {
         this.yandexService.isInited.subscribe(isInited => {
             if (isInited) {
                 this.defineButton();
@@ -26,7 +16,7 @@ export class PolylineComponent implements OnInit {
     }
 
     private defineButton(): void {
-        let button = new this.yandexService.ymaps.control.Button("Кнопка");
+        let button = new this.yandexService.ymaps.control.Button("Ломаная");
         this.yandexService.map.controls.add(button, { float: 'right' });
         button.events.add('click', e => this.toggleButton.call(this));
     }
