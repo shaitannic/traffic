@@ -8,25 +8,7 @@ import { YandexService } from '../yandex.service';
   styleUrls: ['./yandex-map.component.less']
 })
 export class YandexMapComponent implements OnInit {
-  private ymaps: Yandex;
-  private map: YandexMap;
-  private mapEl: any = document.getElementById('map');
+  constructor(private yandexService: YandexService) { }
 
-  constructor(private yandexService: YandexService) {
-    this.ymaps = yandexService.ymaps;
-  }
-
-  ngOnInit(): void {
-    this.ymaps.ready().then(() => {
-      this.initMap();
-    })
-  }
-
-  private initMap(): void {
-    this.map = new this.ymaps.Map("map", {
-      center: [55.76, 37.64],
-      controls: [],
-      zoom: 7
-    })
-  }
+  ngOnInit(): void { }
 }
