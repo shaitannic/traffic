@@ -20,9 +20,7 @@ export class Polyline {
         coordinates: []
     };
 
-    constructor(private yandexService: YandexService) { }
-
-    public create(coords): void {
+    constructor(private yandexService: YandexService, coords: any) {
         this.geometry.coordinates = coords;
         this.myPolyline = new this.yandexService.ymaps.Polyline(coords, this.properties, this.options);
         this.yandexService.map.geoObjects.add(this.myPolyline);

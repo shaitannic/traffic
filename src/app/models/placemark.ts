@@ -1,7 +1,7 @@
 import { YandexService } from '../yandex.service';
 
 export class Placemark {
-    myPolyline: any;
+    myPlacemark: any;
 
     type: "Feature";
 
@@ -12,20 +12,23 @@ export class Placemark {
     };
 
     properties: any = {
-        balloonContent: "Ломаная линия"
+        balloonContent: "Перекресток"
     };
 
     geometry: any = {
-        type: "Polygon",
+        type: "Point",
         coordinates: []
     };
 
-    constructor(private yandexService: YandexService) { }
-
-    public create(coords): void {
+    constructor(private yandexService: YandexService, coords: any) {
         this.geometry.coordinates = coords;
-        this.myPolyline = new this.yandexService.ymaps.Polyline(coords, this.properties, this.options);
-        this.yandexService.map.geoObjects.add(this.myPolyline);
+
+        this.myPlacemark = new this.yandexService.ymaps.GeoObject({
+            geometry: this.geometry,
+            properties: this.properties
+        })
+
+        this.yandexService.map.geoObjects.add(this.myPlacemark);
     }
 
     public save(): void {

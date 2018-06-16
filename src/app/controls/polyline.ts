@@ -1,5 +1,5 @@
 import { YandexService } from '../yandex.service';
-import { Polyline } from '../models/polyline';
+import { Polyline, Placemark } from '../models';
 
 export class PolylineButton {
     private _isActive: boolean = false;
@@ -27,9 +27,9 @@ export class PolylineButton {
         if (this._isActive) {
             this.resetCoords();
         } else if (!!this.coords) {
-            let polylyne = new Polyline(this.yandexService);
-            polylyne.create(this.coords);
-            polylyne.save();
+            new Polyline(this.yandexService, this.coords);
+            new Placemark(this.yandexService, this.coords[0]);
+            new Placemark(this.yandexService, this.coords[this.coords.length - 1]);
         }
     }
 
