@@ -1,1 +1,12 @@
 <div id="map"></div>
+
+
+<div id="menu" *ngIf="true">
+    <form [formGroup]="form" (ngSubmit)="submit()">
+        <li>ObjectId: <input formControlName="objectId" /></li>
+        <li>Входной поток: <input formControlName="inputStream" /></li>
+        <li>Выходной поток: <input formControlName="outputStream" /></li>
+        <input type="submit" value="Сохранить">
+    </form>
+</div>
+
