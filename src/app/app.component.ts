@@ -1,10 +1,15 @@
 import { Component } from '@angular/core';
-import { YandexService } from './yandex.service';
+import { ClickHandler } from './services';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html'
 })
 export class AppComponent {
-  constructor(private yandexService: YandexService) {}
+  constructor(
+    private clickHandler: ClickHandler,
+  ) {
+  }
+
+
 }

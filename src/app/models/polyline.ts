@@ -1,22 +1,22 @@
-import { YandexService } from '../yandex.service';
+import { YandexService } from '../services';
 
 export class Polyline {
     myPolyline: any;
 
-    type: "Feature";
+    type: 'Feature';
 
     options: any = {
-        strokeColor: "#000000", // Цвет линии
+        strokeColor: '#000000', // Цвет линии
         strokeWidth: 4, // Ширина линии
         strokeOpacity: 0.5 // Коэффициент прозрачности
     };
 
     properties: any = {
-        balloonContent: "Ломаная линия"
+        balloonContent: 'Ломаная линия'
     };
 
     geometry: any = {
-        type: "Polygon",
+        type: 'Polygon',
         coordinates: []
     };
 
@@ -32,12 +32,13 @@ export class Polyline {
             options: this.options,
             properties: this.properties,
             geometry: this.geometry
-        }
+        };
+
         this.yandexService.savePolyline(object).subscribe(success => {
             console.log(success);
         },
         error => {
             console.log(error);
-        })
+        });
     }
 }

@@ -1,4 +1,4 @@
-import { YandexService } from '../yandex.service';
+import { YandexService } from '../services';
 
 const ACCELERATION = 2;
 const BRAKING = 3;
@@ -11,7 +11,7 @@ export class Car {
     braking: number = BRAKING;
 
     // начальная скорость
-    v0: number = 0;
+    // v0: number = 0;
 
     // путь
     s0: number;
@@ -23,18 +23,18 @@ export class Car {
     /**@desc начать движение */
     public run(): void {
         let time = 1;
-        let startSpeed = 0;
+        const startSpeed = 0;
 
-        let timer = setInterval(() => {
+        const timer = setInterval(() => {
             console.log(this.currentSpeed(startSpeed, time));
             // console.log(this.currentCoordinate(time));
             time = ++time;
-        }, 1000)
+        }, 1000);
 
         setTimeout(() => {
             clearInterval(timer);
             console.log('stopped');
-        }, 5000)
+        }, 5000);
     }
 
     /**@desc текущая скорость */

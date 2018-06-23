@@ -7,7 +7,7 @@ const routes = [
         path: '',
         component: AppComponent
     }
-]
+];
 
 @NgModule({
     imports: [RouterModule.forRoot(routes)],
