@@ -3,7 +3,9 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 import { PolylineButton } from './controls/polyline';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import 'rxjs/Rx';
+import { Car } from './models';
 
 declare var ymaps: any;
 
@@ -16,7 +18,15 @@ export class YandexService {
     //Координаты клика
     public coordinateOfClick: BehaviorSubject<any> = new BehaviorSubject([]);
 
-    constructor(){
+    private url = 'http://localhost:8000';
+
+    private _isFirstClick: boolean;
+    private _isLastClick: boolean;
+
+    public firstClickPlacemarkCoords: Array<any>;
+    public lastClickPlacemarkCoords: Array<any>;
+
+    constructor(private http: HttpClient){
         this.ymaps = ymaps;
         this.ymaps.ready().then(() => {
             this.initMap();
@@ -24,9 +34,14 @@ export class YandexService {
         })
     }
 
-    public save(object): void {
-        // todo save to file
-        // request to server
+    public getUsers(): Observable<any> {
+        return this.http.get(this.url + '/users')
+    }
+
+    public savePolyline(params): Observable<any> {
+        let headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
+        const polyline = JSON.stringify(params);
+        return this.http.post(this.url + '/polyline', polyline, { headers });
     }
 
     private initMap(): void {
@@ -36,12 +51,55 @@ export class YandexService {
             zoom: 7
         })
 
-        this.map.events.add('click', e => this.setCoordinates.call(this, e));
+        // this.map.events.add('click', e => this.setCoordinates.call(this, e));
         this.isInited.next(true);
     }
 
     private setCoordinates(e): void {
-        var coords = e.get('coords');
+        const coords = e.get('coords');
+
+        if (this.isClickedOnPlacemark(e)) {
+
+            if (this._isFirstClick) {
+                this.saveFirstClickCoords(coords);
+            }
+
+            if (this._isLastClick) {
+                this.saveLastClickCoords(coords);
+            }
+        }
+
         this.coordinateOfClick.next(coords);
+    }
+
+    private saveFirstClickCoords(coords): void {
+        this.firstClickPlacemarkCoords = coords;
+        this._isFirstClick = false;
+    }
+
+    private saveLastClickCoords(coords): void {
+        this.lastClickPlacemarkCoords = coords;
+    }
+
+    /** @desc сбросить счетчик первого и последнего клика */
+    public resetBufferOfClicks(): void {
+        this._isFirstClick = true;
+        this._isLastClick = true;
+        this.firstClickPlacemarkCoords = null;
+        this.lastClickPlacemarkCoords = null;
+    }
+
+    private isClickedOnPlacemark(e): boolean {
+        return true;
+    }
+
+    public get isFirstClickOnPlacemark(): boolean {
+        // добавить проверку, что первый клик был на Placemark
+        return true;
+    }
+
+    public get isSecondClickOnPlacemark(): boolean {
+        // добавить проверку, что последний клик был на Placemark
+        return true;
     }
 }

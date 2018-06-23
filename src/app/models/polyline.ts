@@ -33,6 +33,11 @@ export class Polyline {
             properties: this.properties,
             geometry: this.geometry
         }
-        this.yandexService.save(object);
+        this.yandexService.savePolyline(object).subscribe(success => {
+            console.log(success);
+        },
+        error => {
+            console.log(error);
+        })
     }
 }

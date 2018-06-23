@@ -38,6 +38,6 @@ export class Placemark {
             properties: this.properties,
             geometry: this.geometry
         }
-        this.yandexService.save(object);
+        // this.yandexService.save(object);
     }
 }

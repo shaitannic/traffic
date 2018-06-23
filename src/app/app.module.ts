@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { YandexService } from './yandex.service';
@@ -7,16 +8,17 @@ import { YandexService } from './yandex.service';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpClientModule,
   ],
   providers: [
-    YandexService
+    YandexService,
   ],
   bootstrap: [
-    AppComponent
+    AppComponent,
   ]
 })
 export class AppModule { }

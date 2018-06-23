@@ -26,10 +26,20 @@ export class PolylineButton {
 
         if (this._isActive) {
             this.resetCoords();
+            this.yandexService.resetBufferOfClicks();
         } else if (!!this.coords) {
-            new Polyline(this.yandexService, this.coords);
-            new Placemark(this.yandexService, this.coords[0]);
-            new Placemark(this.yandexService, this.coords[this.coords.length - 1]);
+            const polyline = new Polyline(this.yandexService, this.coords);
+
+            if (this.yandexService.isFirstClickOnPlacemark) {
+                // todo добавить связь между ребрами
+            } else if (this.yandexService.isSecondClickOnPlacemark) {
+                // todo добавить связь между ребрами
+            } else {
+                new Placemark(this.yandexService, this.coords[0]);
+                new Placemark(this.yandexService, this.coords[this.coords.length - 1]);
+            }
+
+            polyline.save();
         }
     }
 
