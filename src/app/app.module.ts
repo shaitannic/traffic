@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { YandexService, ClickHandler } from './services';
+import { YandexService } from './services';
 
 @NgModule({
   declarations: [
@@ -15,12 +15,9 @@ import { YandexService, ClickHandler } from './services';
   ],
   providers: [
     YandexService,
-    ClickHandler,
   ],
   bootstrap: [
     AppComponent,
   ]
 })
-export class AppModule {
-  constructor(private yandexService: YandexService) {}
-}
+export class AppModule {}

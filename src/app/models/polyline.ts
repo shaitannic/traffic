@@ -24,9 +24,10 @@ export class Polyline {
         this.geometry.coordinates = coords;
         this.myPolyline = new this.yandexService.ymaps.Polyline(coords, this.properties, this.options);
         this.yandexService.map.geoObjects.add(this.myPolyline);
+        // this.save();
     }
 
-    public save(): void {
+    private save(): void {
         const object = {
             type: this.type,
             options: this.options,

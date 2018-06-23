@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ClickHandler } from './services';
+import { YandexService } from './services';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +7,7 @@ import { ClickHandler } from './services';
 })
 export class AppComponent {
   constructor(
-    private clickHandler: ClickHandler,
+    private yandexService: YandexService,
   ) {
   }
 
